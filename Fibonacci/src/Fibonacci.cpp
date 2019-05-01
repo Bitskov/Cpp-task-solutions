@@ -1,20 +1,21 @@
+#include <cassert>
+
+#include "Fibonacci.h"
 #include "Matrix.h"
 
-#include <iostream>
-using namespace std;
+number q[] = {1, 1, 1, 0};
 
-int main() {
-	int a[] = {1, 2, 3, 4, 5, 6};
+Matrix Q(&q[0], 2, 2);
 
-	Matrix m1(&a[0], 2, 3);
-	Matrix m2(&a[0], 3, 2);
+number getNumber(int n) {
+	assert(n >= 0);
 
-	//m1.print();
-	//m2.print();
-
-	Matrix r = m1.dot(m2);
-
-	r.print();
-
+	if (n > 2) {
+		Matrix nq = Q.pow(n - 1);
+		return nq.get(0, 0);
+	}
+	else {
+		return n != 0;
+	}
 	return 0;
 }

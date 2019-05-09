@@ -4,32 +4,17 @@
 #include <iostream>
 #include <fstream>
 
-#include <chrono>
+#include <ctime>
 #include <cassert>
+#include <climits>
 using namespace std;
 
 number getNumberCl(int n);
+int fastPowIterations(int n);
 extern Matrix Q;
 
 int main() {
-	ofstream out("fast_pow.dat");
-
-	number prev = 0;
-	number cur = 0;
-
-	auto start = std::chrono::high_resolution_clock::now();
-	for (int i = 0;; i++) {
-		prev = cur;
-		cur = getNumber(i);
-		if (cur >= prev) {
-			cout << i << ' ' << cur << endl;
-			auto finish = std::chrono::high_resolution_clock::now();
-			auto delta = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
-			out << i << ' ' << delta << endl;
-		} else {
-			break;
-		}
-	}
+	cout << getNumber(20) << endl;
 	return 0;
 }
 
@@ -41,11 +26,29 @@ number getNumberCl(int n) {
 
 	number pr = 0;
 	number cur = 1;
+
+	// Iteration counter
+	int a = 0;
+	// Delete
+
 	int i = n - 1;
 	while (i > 0){
 		cur = pr + cur;
 		pr = cur - pr;
 		i -= 1;
+		a++;
 	}
-	return cur;
+	return a;
+}
+
+int fastPowIterations(int n) {
+	if (n == 1) {
+		return 0;
+	}
+
+	if (n % 2 == 1) {
+		return fastPowIterations(n - 1) + 1;
+	} else {
+		return fastPowIterations(n / 2) + 1;
+	}
 }

@@ -45,6 +45,7 @@ Matrix::Matrix(const Matrix & matrix) {
 }
 
 Matrix::~Matrix() {
+	std::cout << "aaa" << std::endl;
 	if (this->a)
 		delete[] this->a;
 }
